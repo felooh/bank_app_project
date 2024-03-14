@@ -1,0 +1,17 @@
+{% extends 'pages/layout.html' %}
+
+{% block body %}
+<div class="card text-center">
+  
+  <h3 style="font-weight: bold;"> Welcome Customer!</h3>
+  <br>
+  <div>
+    <a href="{% url 'account:createAccount' %}" class = "btn btn-primary">Open Account to proceed</a>
+  </div>
+  <br>
+</div>
+<br>
+{% endblock body %}
+
+  
+

@@ -1,0 +1,63 @@
+{% extends 'pages/layout.html' %}
+
+{% block body %}
+<div class="card text-center">
+  
+  <h2 style="font-weight: bold;"> Customer Details</h2>
+  <p>Customer ID: {{ customer_id}} </p>
+  <p>Account ID: {{account_id}}</p>
+  <p><strong>Balance: {{balance}} KES </strong></p>
+
+</div>
+<br>
+  
+<div class="card text-center">
+  <div class="card-header">
+    <h3 style="font-weight: bold;">
+      Transaction Instructions
+    </h3>
+  </div>
+  <div>
+    <p>Enter a valid amount for deposit or withdrawal.</p>
+    <p>Deposit limits: Max per transaction: Kes. 40K, Max frequency: 4 transactions/day, Max for the day: Kes. 150K</p>
+    <p>Withdrawal limits: Max per transaction: Kes. 20K, Max frequency: 3 transactions/day, Max for the day: Kes. 50K</p>
+  </div>
+  
+</div>
+<br>
+<div class="card text-center">
+  <div>
+    <form method="post" action="{% url 'account:transaction'%}">
+      {% csrf_token %}
+      
+      <div class="form-group">
+          <label for="id_amount"><strong>Enter Amount:</strong></label>
+          <input type="number" class="form-control" name="amount" maxlength="100" required id="id_amount">
+      </div>
+      <input type="hidden" class="form-control" name="account_id" maxlength="100" required id="id_account_id" value="{{ account_id }}">
+      <br>
+      <button type="submit" class="btn btn-success" name="action" value="deposit">Deposit</button>
+      <button type="submit" class="btn btn-primary" name="action" value="check_balance">Check Balance</button>
+      <button type="submit" class="btn btn-danger" name="action" value="withdraw">Withdraw</button>
+      <br>
+      <br>
+  </form>
+  </div>
+</div>
+<div class="card text-center">
+  <div>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+            <li class="message-{{ message.tags }}">{% if message.tags %}{{ message.tags }}: {% endif %}{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock body %}
+
+  
+
